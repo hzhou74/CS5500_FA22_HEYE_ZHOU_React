@@ -3,6 +3,7 @@ import Tuits from "../tuits";
 import MyTuits from "./my-tuits";
 import {Link, Route, Routes, useNavigate} from "react-router-dom";
 import * as service from "../../services/auth-service";
+import MyLikes from "./my-likes";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -26,6 +27,15 @@ const Profile = () => {
         <button onClick={logout}>
           Logout</button>
 
+          <Link to="/profile/mytuits">
+              Tuits</Link>
+          <Link to="/profile/tuits-and-replies">
+              Tuits & replies</Link>
+          <Link to="/profile/media">
+              Media</Link>
+          <Link to="/profile/mylikes">
+              Likes</Link>
+
           <Routes>
               <Route path="/mytuits"
                      element={<MyTuits/>}/>
@@ -33,8 +43,8 @@ const Profile = () => {
               {/*       element={<TuitsAndReplies/>}/>*/}
               {/*<Route path="/media"*/}
               {/*       element={<Media/>}/>*/}
-              {/*<Route path="/mylikes"*/}
-              {/*       element={<MyLikes/>}/>*/}
+              <Route path="/mylikes"
+                     element={<MyLikes/>}/>
           </Routes>
 
       </div>
