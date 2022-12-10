@@ -15,6 +15,9 @@ import More from "../more";
 import Movies from "../movies";
 import MovieDetails from "../movies/details";
 import Login from "../profile/login";
+import MyTuits from "../profile/my-tuits";
+import MyDislikes from "../profile/my-dislikes";
+import MyLikes from "../profile/my-likes";
 
 function Tuiter () {
   return(
@@ -38,6 +41,9 @@ function Tuiter () {
               <Route path="/bookmarks" element={<Bookmarks/>}/>
               <Route path="/lists" element={<Lists/>}/>
               <Route path="/profile" element={<Profile/>}/>
+              <Route path="/profile/mytuits" element={<MyTuits/>}/>
+              <Route path="/profile/mylikes" element={<MyLikes/>}/>
+              <Route path="/profile/mydislikes" element={<MyDislikes/>}/>
               <Route path="/profile/edit" element={<EditProfile/>}/>
               <Route path="/movies" element={<Movies/>}/>
               <Route path="/movies/:imdbID" element={<MovieDetails/>}/>

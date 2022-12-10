@@ -1,24 +1,67 @@
-import { useEffect, useState } from "react";
-import * as service from "../../services/tuits-service";
+import { Box, Stack, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
+
 import Tuits from "../tuits";
-import {Box, Typography} from "@mui/material";
+import * as authService from "../../services/auth-service";
+import * as tuitService from "../../services/tuits-service";
+import * as serviceUser from "../../services/users-service";
+import {useNavigate} from "react-router-dom";
 
 const MyTuits = () => {
-    const [tuits, setTuits] = useState([]);
+    const navigate = useNavigate();
+    const [authprofile, setAuthProfile] = useState({});
+    const [profileResp, setProfile] = useState({});
+    const [userResp, setUser] = useState({});
+    const [myTuits, setMyTuits] = useState();
 
-    const findMyTuits = () =>
-        service.findTuitsByUser("me").then((tuits) => setTuits(tuits));
-    useEffect(findMyTuits, []);
+    useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const user = await authService.profile();
+                setAuthProfile(user);
+            } catch (e) {
+                console.log("session profile not found, send to login page");
+                navigate("/profile/login");
+            }
+        };
+        fetchProfile();
+    }, [navigate]);
 
-    const deleteTuit = (tid) => service.deleteTuit(tid).then(findMyTuits);
+    const logout = () => {
+        authService.logout()
+            .then(() => navigate('/login'));
+    }
+
+    useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const uid = authprofile._id.toString();
+                console.log("id", uid);
+                const myTuit = await tuitService.findTuitsByUser(uid);
+                setMyTuits(myTuit);
+            } catch (e) {
+                //navigate("/login");
+            }
+        };
+        fetchProfile();
+    }, [authprofile]);
+
 
     return (
-        <div>
-            <Box py={3}>
-                    <Typography variant="h4">MyTuits</Typography>
-            </Box>
-            <Tuits tuits={tuits} deleteTuit={deleteTuit} refreshTuits={findMyTuits} />
-    </div>
-);
-};
-export default MyTuits;
+        <Box>
+            <Typography variant="h3">My Tuits</Typography>
+
+            <div>
+                <h4>{authprofile.username}</h4>
+                <h6>@{authprofile.username}</h6>
+                <button onClick={logout}>
+                    Logout
+                </button>
+                <Box textAlign="center" mt={4}>
+                    <Tuits tuits={myTuits}/>
+                </Box>
+            </div>
+        </Box>
+    );
+}
+export default MyTuits
