@@ -6,6 +6,8 @@ import * as authService from "../../services/auth-service";
 import * as tuitService from "../../services/tuits-service";
 import * as serviceUser from "../../services/users-service";
 import {Link, Route, Routes, useNavigate} from "react-router-dom";
+import MyTuits from "./my-tuits";
+import MyLikes from "./my-likes";
 
 
 /**
@@ -88,6 +90,18 @@ const Profile = () => {
                     <Typography>Click Below to MyDislikes</Typography>
                     <Link to="/profile/mydislikes">
                         DisLikes</Link>
+
+                    <Routes>
+                        <Route path="/mytuits"
+                               element={<MyTuits/>}/>
+                        {/*<Route path="/tuits-and-replies"*/}
+                        {/*       element={<TuitsAndReplies/>}/>*/}
+                        {/*<Route path="/media"*/}
+                        {/*       element={<Media/>}/>*/}
+                        <Route path="/mylikes"
+                               element={<MyLikes/>}/>
+                    </Routes>
+
 
                 </Box>
                 <Tuits tuits={myTuits} />
