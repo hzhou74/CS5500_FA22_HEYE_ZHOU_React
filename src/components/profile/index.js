@@ -107,7 +107,7 @@ const Profile = () => {
 
 
                 </Box>
-                <Tuits tuits={myTuits} />
+                {/*<Tuits tuits={myTuits} />*/}
             </div>
         </Box>
     );
