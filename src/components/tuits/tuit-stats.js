@@ -1,65 +1,90 @@
-import React from "react";
+import React, {useState,useEffect} from "react";
+import * as LikeService from '../../services/likes-service';
+const TuitStats = ({ tuit, currentUser, index, deleteBookmark, displayComment, commentCount }) => {
+    // let likeValueDisplayLogic;
 
-const TuitStats = ({tuit, likeTuit,  dislikeTuit}) => {
-    return (
-        <div className="row">
-            ...
-            <div className="col">
-        <span onClick={() => likeTuit(tuit)}>
-        {
-            tuit.stats.likes > 0 &&
-            <i className="fas fa-heart"
-               style={{color: 'red'}}></i>
+    // if (tuit.stats && tuit.stats.likes) {
+    //     if (tuit.stats.likes > 0) {
+    //         // likeValueDisplayLogic = <FavoriteIcon sx={{ color: "red" }} />;
+    //     }
+    // } else if (tuit.stats && tuit.stats.likes <= 0) {
+    //     // likeValueDisplayLogic = <FavoriteIcon sx={{ color: "gray" }} />;
+    // }
+
+    const [isTuitLiked, setIsTuitLiked] = useState(false);
+    const [likeCount, setLikeCount] = useState(0);
+
+
+    const likeTheTuit = async ()=>{
+        const result= await LikeService.createLike(currentUser._id,tuit._id);
+        console.log('after like creation: '+JSON.stringify(result));
+    }
+
+
+    const deleteTheTuit = async ()=>{
+        const result= await LikeService.deleteLike(currentUser._id,tuit._id);
+        console.log('after delete creation: '+JSON.stringify(result));
+
+    }
+
+    const likeTuit = () => {
+
+        if(!isTuitLiked){
+            likeTheTuit();
+            setIsTuitLiked(true);
+            setLikeCount((prevCount)=>prevCount+1);
+        }else {
+            deleteTheTuit()
+            setIsTuitLiked(false);
+            setLikeCount((prevCount)=>prevCount-1);
         }
-            {
-                tuit.stats.likes <= 0 &&
-                <i className="far fa-heart"></i>
+    }
+
+    useEffect(() => {
+
+        const findLikeCountAndIsTuitLiked = async () =>{
+
+            const likedData= await LikeService.findUsersThatLikeTheTuitByTuidId(tuit._id);
+            setLikeCount(likedData.length);
+            for(let i=0;i<likedData.length;i++){
+                if(likedData[i].likedBy._id===currentUser._id){
+                    setIsTuitLiked(true);
+                    break;
+                }
             }
-            {tuit.stats && tuit.stats.likes}
-        </span>
-                <span onClick={() => dislikeTuit(tuit)}>
-        {
-            tuit.stats.likes > 0 &&
-            <i className="fas fa-heart"
-               style={{color: 'red'}}></i>
         }
-                    {
-                        tuit.stats.likes <= 0 &&
-                        <i className="far fa-heart"></i>
-                    }
-                    {tuit.stats && tuit.stats.likes}
-        </span>
+
+        findLikeCountAndIsTuitLiked();
+    }, [])
+
+
+    return (
+        <div className="row mt-2">
+            {isTuitLiked&&
+                <div className="col">
+                    <i className='fa-solid fa-thumbs-up' style={{color:'red'}} onClick={()=>likeTuit()} ></i>
+                    {likeCount}
+                </div>
+            }
+            {!isTuitLiked&&<div className="col">
+                <i className='fa-solid fa-thumbs-up' onClick={()=>likeTuit()}></i>
+                {likeCount}
             </div>
-            ...
+            }
+
+            {/*{isTuitLiked&&*/}
+            {/*    <div className="col">*/}
+            {/*        <i className='fa-solid fa-thumbs-down' style={{color:'blue'}} onClick={()=>likeTuit()} ></i>*/}
+            {/*        {likeCount}*/}
+            {/*    </div>*/}
+            {/*}*/}
+            {/*{!isTuitLiked&&<div className="col">*/}
+            {/*    <i className='fa-solid fa-thumbs-down' onClick={()=>likeTuit()}></i>*/}
+            {/*    {likeCount}*/}
+            {/*</div>*/}
+            {/*}*/}
+
         </div>
     );
-}
-export default TuitStats
-
-
-// export default class TuitStats extends React.Component {
-//   constructor(props) {
-//     super(props);
-//   }
-//   render() {
-//     return (
-//       <div className="row mt-2">
-//         <div className="col">
-//           <i className="far fa-message me-1"></i>
-//           {this.props.tuit.stats && this.props.tuit.stats.replies}
-//         </div>
-//         <div className="col">
-//           <i className="far fa-retweet me-1"></i>
-//           {this.props.tuit.stats && this.props.tuit.stats.retuits}
-//         </div>
-//         <div className="col">
-//           <i className="far fa-heart me-1"></i>
-//           {this.props.tuit.stats && this.props.tuit.stats.likes}
-//         </div>
-//         <div className="col">
-//           <i className="far fa-inbox-out"></i>
-//         </div>
-//       </div>
-//     );
-//   }
-// }
+};
+export default TuitStats;

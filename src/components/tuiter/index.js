@@ -1,61 +1,125 @@
 import React from "react";
 import Navigation from "../navigation";
 import WhatsHappening from "../whats-happening";
-import {BrowserRouter, Routes, Route, HashRouter} from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import Home from "../home";
 import Bookmarks from "../bookmarks";
 import Profile from "../profile";
-import './tuiter.css'
-import EditProfile from "../profile/edit-profile";
+import "./tuiter.css";
 import Explore from "../explore";
 import Notifications from "../notifications";
 import Messages from "../messages";
 import Lists from "../lists";
 import More from "../more";
-import Movies from "../movies";
-import MovieDetails from "../movies/details";
+// import Editprofile from "../profile/editprofile";
+// import Likedhistory from "../profile/likehistory";
 import Login from "../profile/login";
 import MyTuits from "../profile/my-tuits";
-import MyDislikes from "../profile/my-dislikes";
 import MyLikes from "../profile/my-likes";
+import MyDislikes from "../profile/my-dislikes";
 
-function Tuiter () {
-  return(
-    <HashRouter>
-      <div className="container">
-        <div className="ttr-tuiter">
-          <div className="ttr-left-column">
-            <Navigation/>
-          </div>
-          <div className="ttr-center-column">
-            <Routes>
-              <Route path="/" element={<Home/>}/>
-              <Route path="/login" element={<Login/>}/>
-              <Route path="/tuiter" element={<Home/>}/>
-              <Route path="/tuiter/:uid" element={<Home/>}/>
-              <Route path="/home" element={<Home/>}/>
-              <Route path="/home/:uid" element={<Home/>}/>
-              <Route path="/explore" element={<Explore/>}/>
-              <Route path="/notifications" element={<Notifications/>}/>
-              <Route path="/messages" element={<Messages/>}/>
-              <Route path="/bookmarks" element={<Bookmarks/>}/>
-              <Route path="/lists" element={<Lists/>}/>
-              <Route path="/profile" element={<Profile/>}/>
-              <Route path="/profile/mytuits" element={<MyTuits/>}/>
-              <Route path="/profile/mylikes" element={<MyLikes/>}/>
-              <Route path="/profile/mydislikes" element={<MyDislikes/>}/>
-              <Route path="/profile/edit" element={<EditProfile/>}/>
-              <Route path="/movies" element={<Movies/>}/>
-              <Route path="/movies/:imdbID" element={<MovieDetails/>}/>
-              <Route path="/more" element={<More/>}/>
-            </Routes>
-          </div>
-          <div className="ttr-right-column">
-            <WhatsHappening/>
+function Tuiter() {
+  return (
+      <HashRouter>
+        <div className="container">
+          <div className="ttr-tuiter">
+            <div className="ttr-left-column">
+              <Navigation />
+            </div>
+            <div className="ttr-center-column">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/tuiter" element={<Home />} />
+                <Route path="/tuiter/:uid" element={<Home/>}/>
+                <Route path="/home" element={<Home />} />
+                <Route path="/home/:uid" element={<Home/>}/>
+                <Route path="/explore" element={<Explore />} />
+                <Route path="/notifications" element={<Notifications />} />
+                <Route path="/messages" element={<Messages />} />
+                <Route path="/bookmarks" element={<Bookmarks />} />
+                <Route path="/lists" element={<Lists />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/login" element={<Login/>}/>
+                {/*<Route*/}
+                {/*    path="/profile/editprofile/:uid"*/}
+                {/*    element={<Editprofile />}*/}
+                {/*/>*/}
+                {/*<Route path="/profile/likedhistory" element={<Likedhistory />} />*/}
+                <Route path="/more" element={<More />} />
+                <Route path="/profile/mytuits" element={<MyTuits />} />
+                <Route path="/profile/mylikes" element={<MyLikes/>}/>
+                <Route path="/profile/mydislikes" element={<MyDislikes/>}/>
+                <Route path="/profile/login" element={<Login />} />
+                <Route path="/more" element={<More />} />
+              </Routes>
+            </div>
+            <div className="ttr-right-column">
+              <WhatsHappening />
+            </div>
           </div>
         </div>
-      </div>
-    </HashRouter>
+      </HashRouter>
   );
 }
 export default Tuiter;
+// import React from "react";
+// import Navigation from "../navigation";
+// import WhatsHappening from "../whats-happening";
+// import {BrowserRouter, Routes, Route, HashRouter} from "react-router-dom";
+// import Home from "../home";
+// import Bookmarks from "../bookmarks";
+// import Profile from "../profile";
+// import './tuiter.css'
+// import EditProfile from "../profile/edit-profile";
+// import Explore from "../explore";
+// import Notifications from "../notifications";
+// import Messages from "../messages";
+// import Lists from "../lists";
+// import More from "../more";
+// import Movies from "../movies";
+// import MovieDetails from "../movies/details";
+// import Login from "../profile/login";
+// import MyTuits from "../profile/my-tuits";
+// import MyDislikes from "../profile/my-dislikes";
+// import MyLikes from "../profile/my-likes";
+//
+// function Tuiter () {
+//   return(
+//     <HashRouter>
+//       <div className="container">
+//         <div className="ttr-tuiter">
+//           <div className="ttr-left-column">
+//             <Navigation/>
+//           </div>
+//           <div className="ttr-center-column">
+//             <Routes>
+//               <Route path="/" element={<Home/>}/>
+//               <Route path="/login" element={<Login/>}/>
+//               <Route path="/tuiter" element={<Home/>}/>
+//               <Route path="/tuiter/:uid" element={<Home/>}/>
+//               <Route path="/home" element={<Home/>}/>
+//               <Route path="/home/:uid" element={<Home/>}/>
+//               <Route path="/explore" element={<Explore/>}/>
+//               <Route path="/notifications" element={<Notifications/>}/>
+//               <Route path="/messages" element={<Messages/>}/>
+//               <Route path="/bookmarks" element={<Bookmarks/>}/>
+//               <Route path="/lists" element={<Lists/>}/>
+//               <Route path="/profile" element={<Profile/>}/>
+//               <Route path="/profile/mytuits" element={<MyTuits/>}/>
+//               <Route path="/profile/mylikes" element={<MyLikes/>}/>
+//               <Route path="/profile/mydislikes" element={<MyDislikes/>}/>
+//               <Route path="/profile/edit" element={<EditProfile/>}/>
+//               <Route path="/movies" element={<Movies/>}/>
+//               <Route path="/movies/:imdbID" element={<MovieDetails/>}/>
+//               <Route path="/more" element={<More/>}/>
+//             </Routes>
+//           </div>
+//           <div className="ttr-right-column">
+//             <WhatsHappening/>
+//           </div>
+//         </div>
+//       </div>
+//     </HashRouter>
+//   );
+// }
+// export default Tuiter;
