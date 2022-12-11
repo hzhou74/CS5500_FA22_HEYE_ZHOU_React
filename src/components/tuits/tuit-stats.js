@@ -1,5 +1,6 @@
 import React, {useState,useEffect} from "react";
 import * as LikeService from '../../services/likes-service';
+import * as DislikeService from '../../services/dislikes-service';
 const TuitStats = ({ tuit, currentUser, index, deleteBookmark, displayComment, commentCount }) => {
     // let likeValueDisplayLogic;
 
@@ -12,7 +13,9 @@ const TuitStats = ({ tuit, currentUser, index, deleteBookmark, displayComment, c
     // }
 
     const [isTuitLiked, setIsTuitLiked] = useState(false);
+    const [isTuitDisliked, setIsTuitDisliked] = useState(false);
     const [likeCount, setLikeCount] = useState(0);
+    const [dislikeCount, setDislikeCount] = useState(0);
 
 
     const likeTheTuit = async ()=>{
@@ -20,6 +23,17 @@ const TuitStats = ({ tuit, currentUser, index, deleteBookmark, displayComment, c
         console.log('after like creation: '+JSON.stringify(result));
     }
 
+    const dislikeTheTuit = async ()=>{
+        const result= await DislikeService.createDislike(currentUser._id,tuit._id);
+        console.log('after like creation: '+JSON.stringify(result));
+    }
+
+
+    const deleteTheTuit2 = async ()=>{
+        const result= await DislikeService.deleteDisLike(currentUser._id,tuit._id);
+        console.log('after delete creation: '+JSON.stringify(result));
+
+    }
 
     const deleteTheTuit = async ()=>{
         const result= await LikeService.deleteLike(currentUser._id,tuit._id);
@@ -33,18 +47,51 @@ const TuitStats = ({ tuit, currentUser, index, deleteBookmark, displayComment, c
             likeTheTuit();
             setIsTuitLiked(true);
             setLikeCount((prevCount)=>prevCount+1);
+            setDislikeCount((prevCount)=>prevCount-1);
         }else {
             deleteTheTuit()
             setIsTuitLiked(false);
             setLikeCount((prevCount)=>prevCount-1);
+            setDislikeCount((prevCount)=>prevCount+1);
+        }
+    }
+
+    const dislikeTuit = () => {
+
+        if(!isTuitDisliked){
+            dislikeTheTuit();
+            setIsTuitDisliked(true);
+            setDislikeCount((prevCount)=>prevCount+1);
+            setLikeCount((prevCount)=>prevCount-1);
+        }else {
+            deleteTheTuit2()
+            setIsTuitDisliked(false);
+            setDislikeCount((prevCount)=>prevCount-1);
+            setLikeCount((prevCount)=>prevCount+1);
         }
     }
 
     useEffect(() => {
 
+        const findDislikeCountAndIsTuitDisliked = async () =>{
+
+            const dislikedData= await DislikeService.findUsersThatDisLikeTheTuitByTuitId(tuit._id);
+            setDislikeCount(dislikedData.length);
+            for(let i=0;i<dislikedData.length;i++){
+                if(dislikedData[i].dislikedBy._id===currentUser._id){
+                    setIsTuitDisliked(true);
+                    break;
+                }
+            }
+        }
+        findDislikeCountAndIsTuitDisliked();
+    }, [])
+
+    useEffect(() => {
+
         const findLikeCountAndIsTuitLiked = async () =>{
 
-            const likedData= await LikeService.findUsersThatLikeTheTuitByTuidId(tuit._id);
+            const likedData= await LikeService.findUsersThatLikeTheTuitByTuitId(tuit._id);
             setLikeCount(likedData.length);
             for(let i=0;i<likedData.length;i++){
                 if(likedData[i].likedBy._id===currentUser._id){
@@ -72,17 +119,17 @@ const TuitStats = ({ tuit, currentUser, index, deleteBookmark, displayComment, c
             </div>
             }
 
-            {/*{isTuitLiked&&*/}
-            {/*    <div className="col">*/}
-            {/*        <i className='fa-solid fa-thumbs-down' style={{color:'blue'}} onClick={()=>likeTuit()} ></i>*/}
-            {/*        {likeCount}*/}
-            {/*    </div>*/}
-            {/*}*/}
-            {/*{!isTuitLiked&&<div className="col">*/}
-            {/*    <i className='fa-solid fa-thumbs-down' onClick={()=>likeTuit()}></i>*/}
-            {/*    {likeCount}*/}
-            {/*</div>*/}
-            {/*}*/}
+            {isTuitDisliked&&
+                <div className="col">
+                    <i className='fa-solid fa-thumbs-down' style={{color:'blue'}} onClick={()=>dislikeTuit()} ></i>
+                    {dislikeCount}
+                </div>
+            }
+            {!isTuitDisliked&&<div className="col">
+                <i className='fa-solid fa-thumbs-down' onClick={()=>dislikeTuit()}></i>
+                {dislikeCount}
+            </div>
+            }
 
         </div>
     );

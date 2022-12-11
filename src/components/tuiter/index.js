@@ -11,8 +11,6 @@ import Notifications from "../notifications";
 import Messages from "../messages";
 import Lists from "../lists";
 import More from "../more";
-// import Editprofile from "../profile/editprofile";
-// import Likedhistory from "../profile/likehistory";
 import Login from "../profile/login";
 import MyTuits from "../profile/my-tuits";
 import MyLikes from "../profile/my-likes";
@@ -40,11 +38,6 @@ function Tuiter() {
                 <Route path="/lists" element={<Lists />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/login" element={<Login/>}/>
-                {/*<Route*/}
-                {/*    path="/profile/editprofile/:uid"*/}
-                {/*    element={<Editprofile />}*/}
-                {/*/>*/}
-                {/*<Route path="/profile/likedhistory" element={<Likedhistory />} />*/}
                 <Route path="/more" element={<More />} />
                 <Route path="/profile/mytuits" element={<MyTuits />} />
                 <Route path="/profile/mylikes" element={<MyLikes/>}/>

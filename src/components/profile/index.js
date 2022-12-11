@@ -8,6 +8,7 @@ import * as serviceUser from "../../services/users-service";
 import {Link, Route, Routes, useNavigate} from "react-router-dom";
 import MyTuits from "./my-tuits";
 import MyLikes from "./my-likes";
+import MyDislikes from "./my-dislikes";
 
 
 /**
@@ -100,6 +101,8 @@ const Profile = () => {
                         {/*       element={<Media/>}/>*/}
                         <Route path="/mylikes"
                                element={<MyLikes/>}/>
+                        <Route path="/mydislikes"
+                               element={<MyDislikes/>}/>
                     </Routes>
 
 

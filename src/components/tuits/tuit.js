@@ -4,7 +4,7 @@ import TuitImage from "./tuit-image";
 import TuitVideo from "./tuit-video";
 import { Avatar } from "@mui/material";
 
-const Tuit = ({ tuit, likeTuit, bookmarkTuit, currentUser,index, deleteBookmark }) => {
+const Tuit = ({ tuit, likeTuit,dislikeTuit, bookmarkTuit, currentUser,index, deleteBookmark }) => {
     const daysOld = (tuit) => {
         const now = new Date();
         const nowMillis = now.getTime();
@@ -50,6 +50,7 @@ const Tuit = ({ tuit, likeTuit, bookmarkTuit, currentUser,index, deleteBookmark 
                     tuit={tuit}
                     currentUser={currentUser}
                     likeTuit={likeTuit}
+                    dislikeTuit={dislikeTuit}
                     index={index}
                 />
             </div>

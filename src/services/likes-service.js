@@ -23,8 +23,9 @@ export const createLike = (uid,tid) =>
  * Find users that like the tuit by id
  * @param tid
  */
-export const findUsersThatLikeTheTuitByTuidId = (tid) =>
+export const findUsersThatLikeTheTuitByTuitId = (tid) =>
     axios.get(`${TUIT_API}/${tid}/likes`).then((response) => response.data);
+
 
 /**
  * Delete like by user id

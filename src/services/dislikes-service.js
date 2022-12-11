@@ -7,11 +7,32 @@ import axios from "axios";
 
 // const BASE_URL = process.env.REACT_APP_BASE_URL;
 const BASE_URL = "http://localhost:4000";
-const USERS_API = `${BASE_URL}/api/users`;
+const USERS_API = `${BASE_URL}/users`;
+const TUIT_API = `${BASE_URL}/tuits`;
 
 const api = axios.create({
     withCredentials: true,
 });
+
+
+/**
+ * Create a new like of a tuit
+ * @returns newly created tuit
+ * @param uid
+ * @param tid
+ */
+export const createDislike = (uid,tid) =>
+    axios.post(`${USERS_API}/${uid}/dislikes/${tid}`).then((response) => response.data);
+
+/**
+ * Delete like by user id
+ * @param  {string} uid user id
+ * @param  {string} tid tuit id
+ * return delete status
+ */
+export const deleteDisLike = (uid,tid) =>
+    axios.delete(`${USERS_API}/${uid}/dislikes/${tid}`).then((response) => response.data);
+
 
 /**
  * Find all tuits dislikes by user
@@ -19,7 +40,16 @@ const api = axios.create({
  * @returns array of tuits disliked by user
  */
 export const findAllTuitsDislikedByUser = (uid) =>
-    api.get(`${USERS_API}/${uid}/dislikes`).then((response) => response.data);
+    axios.get(`${USERS_API}/${uid}/dislikes`).then((response) => response.data);
+
+
+
+/**
+ * Find users that like the tuit by id
+ * @param tid
+ */
+export const findUsersThatDisLikeTheTuitByTuitId = (tid) =>
+    axios.get(`${TUIT_API}/${tid}/dislikes`).then((response) => response.data);
 
 /**
  * Add a dislike to the database
