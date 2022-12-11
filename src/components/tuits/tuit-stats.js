@@ -2,15 +2,7 @@ import React, {useState,useEffect} from "react";
 import * as LikeService from '../../services/likes-service';
 import * as DislikeService from '../../services/dislikes-service';
 const TuitStats = ({ tuit, currentUser, index, deleteBookmark, displayComment, commentCount }) => {
-    // let likeValueDisplayLogic;
 
-    // if (tuit.stats && tuit.stats.likes) {
-    //     if (tuit.stats.likes > 0) {
-    //         // likeValueDisplayLogic = <FavoriteIcon sx={{ color: "red" }} />;
-    //     }
-    // } else if (tuit.stats && tuit.stats.likes <= 0) {
-    //     // likeValueDisplayLogic = <FavoriteIcon sx={{ color: "gray" }} />;
-    // }
 
     const [isTuitLiked, setIsTuitLiked] = useState(false);
     const [isTuitDisliked, setIsTuitDisliked] = useState(false);

@@ -1,7 +1,6 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
-import Tuits from "../tuits";
 import * as authService from "../../services/auth-service";
 import * as tuitService from "../../services/tuits-service";
 import * as serviceUser from "../../services/users-service";

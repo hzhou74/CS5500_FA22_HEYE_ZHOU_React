@@ -1,7 +1,6 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import TuitStats from "./tuit-stats";
-import TuitImage from "./tuit-image";
-import TuitVideo from "./tuit-video";
+
 import { Avatar } from "@mui/material";
 
 const Tuit = ({ tuit, likeTuit,dislikeTuit, bookmarkTuit, currentUser,index, deleteBookmark }) => {
