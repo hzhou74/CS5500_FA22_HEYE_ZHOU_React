@@ -3,6 +3,7 @@ import Tuits from "../tuits";
 import * as authService from "../../services/auth-service";
 import * as UserService from "../../services/users-service";
 import * as likeService from "../../services/likes-service";
+import * as dislikeService from "../../services/dislikes-service";
 
 import { useNavigate } from "react-router-dom";
 function MyDislikes() {

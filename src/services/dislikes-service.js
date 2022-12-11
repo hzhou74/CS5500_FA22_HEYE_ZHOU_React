@@ -39,7 +39,7 @@ export const deleteDisLike = (uid,tid) =>
  * @param {string} uid user id
  * @returns array of tuits disliked by user
  */
-export const findAllTuitsDislikedByUser = (uid) =>
+export const findTuitsDislikedByAUser = (uid) =>
     axios.get(`${USERS_API}/${uid}/dislikes`).then((response) => response.data);
 
 
